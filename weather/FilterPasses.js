@@ -1,5 +1,3 @@
-var filter_sats = [];
-
 $(document).ready(function() {
 
     document.getElementById("close_popup").onclick = function() {
@@ -22,22 +20,22 @@ function HideFilterPopup() {
 }
 
 function AddSatToFilter(e) {
-    if (!filter_sats.includes(e.options[e.selectedIndex].text)) {
-        filter_sats.push(e.options[e.selectedIndex].text)
+    if (!filter.satellites.includes(e.options[e.selectedIndex].text)) {
+        filter.satellites.push(e.options[e.selectedIndex].text)
         ShowSatsInFilter()
     }
 }
 
 function RemoveSatFromFilter(e) {
     var satName = e.parentNode.getElementsByTagName("span")[0].innerHTML;
-    filter_sats = filter_sats.filter(e => e !== satName);
+    filter.satellites = filter.satellites.filter(e => e !== satName);
     e.parentNode.parentNode.removeChild(e.parentNode);
     ShowSatsInFilter()
 }
 
 function ShowSatsInFilter() {
     document.getElementById("sats_in_filter").innerHTML = "";
-    filter_sats.forEach(sat => {
+    filter.satellites.forEach(sat => {
         var clone = document.getElementById("filter_sat_template").cloneNode(true);
         clone.getElementsByTagName("span")[0].innerHTML = sat;
         document.getElementById("sats_in_filter").innerHTML += clone.innerHTML;
@@ -48,25 +46,34 @@ function ShowSatsInFilter() {
 function ApplyFilter() {
     document.getElementById("main_content").innerHTML = "";
     pass_count = 0;
+    passes = []
 
-    //show the first 5 passes
-    for (var i = 0; i < passes.length; i++) {
-        pass = passes[i];
-        if (Filter(pass)) {
+    filter.before_date = document.getElementById("filter_before_date").valueAsNumber / 1000;
+    filter.after_date = document.getElementById("filter_after_date").valueAsNumber / 1000;
+    filter.min_elevation = document.getElementById("filter_min_elev").valueAsNumber;
+    filter.max_elevation = document.getElementById("filter_max_elev").valueAsNumber;
+    filter.min_sun_elevation = document.getElementById("filter_min_sun").valueAsNumber;
+    filter.max_sun_elevation = document.getElementById("filter_max_sun").valueAsNumber;
+
+
+    //get the first five passes
+    $.ajax({
+        url: "/api/weather/get/pass?pass_count=5"
+        + (filter.satellites.length == 0 ? "" : "&satellites=" + filter.satellites.join(",")) 
+        + (!filter.before_date ? "" : "&before=" + filter.satellites.join(","))
+        + (!filter.after_date ? "" : "&after=" + filter.after_date.join(","))
+        + (!filter.min_elevation ? "" : "&min_elevation=" + filter.min_elevation.join(","))
+        + (!filter.max_elevation ? "" : "&max_elevation=" + filter.max_elevation.join(","))
+        + (!filter.min_sun_elevation ? "" : "&min_sun_elevation=" + filter.min_sun_elevation.join(","))
+        + (!filter.max_sun_elevation ? "" : "&max_sun_elevation=" + filter.max_sun_elevation.join(",")),
+        type: "GET",
+        dataType: "json"
+    }).done(function (response) {
+        response.forEach(pass => {
+            passes.push(pass);
             ShowPass(pass);
-            pass_count += 1;
-        }
-    }
-
-    /*
-    for (var i = 0; i < 5; i++) {
-        while (Filter(passes[passes.length - pass_count - 1]) == false) {
-            pass_count++;
-        }
-        ShowPass(passes[passes.length - pass_count - 1]);
-        pass_count++;
-    }
-    */
+        });
+    });
 
     HideFilterPopup();
 }
@@ -81,7 +88,7 @@ function Filter(path) {
 
     $.getJSON(path, function(result) {
         if (
-            (filter_sats.length == 0 || filter_sats.indexOf(result.satellite) != -1) &&
+            (filter.satellites.length == 0 || filter.satellites.indexOf(result.satellite) != -1) &&
             !(document.getElementById("filter_before_date").valueAsNumber / 1000 <= result.aos) &&
             !(document.getElementById("filter_after_date").valueAsNumber / 1000 >= result.aos) &&
             !(document.getElementById("filter_min_elev").valueAsNumber >= result.max_elevation) &&

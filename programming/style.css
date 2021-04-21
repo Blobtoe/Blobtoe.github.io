@@ -1,0 +1,65 @@
+a {
+    text-decoration: underline;
+    color: rgb(90, 90, 90);
+}
+
+a:hover {
+    color: rgb(0, 107, 207);
+}
+
+.project_container {
+    display: flex;
+    margin: 0 15%;
+    padding-top: 50px;
+}
+
+.image_container {
+    padding-right: 5vw;
+}
+
+.image_container img {
+    width: 30vw;
+}
+
+.project_container h2 {
+    margin: 0px;
+    font-size: 50px;
+}
+
+.project_container p {
+    font-size: 24px;
+}
+
+@media (max-width: 800px) {
+    .project_container h2 {
+        margin: 0px;
+        font-size: 6vw;
+    }
+
+    .project_container {
+        display: inline;
+        margin: 0 15%;
+        height: auto;
+        width: 100%;
+    }
+
+    .project_container h2 {
+        text-align: center;
+    }
+    
+    .project_container p {
+        text-align: center;
+    }
+
+    .image_container {
+        text-align: center;
+    }
+
+    .project-date {
+        text-align: center;
+    }
+}
+
+.code {
+    
+}

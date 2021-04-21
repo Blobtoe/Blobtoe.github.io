@@ -9,17 +9,16 @@ a:hover {
 
 .project_container {
     display: flex;
-    margin: auto;
-    width: 800px;
+    margin: 0 15%;
     padding-top: 50px;
 }
 
 .image_container {
-    padding-right: 50px;
+    padding-right: 5vw;
 }
 
 .image_container img {
-    width: 200px;
+    width: 30vw;
 }
 
 .project_container h2 {
@@ -29,4 +28,34 @@ a:hover {
 
 .project_container p {
     font-size: 24px;
+}
+
+@media (max-width: 800px) {
+    .project_container h2 {
+        margin: 0px;
+        font-size: 6vw;
+    }
+
+    .project_container {
+        display: inline;
+        margin: 0 15%;
+        height: auto;
+        width: 100%;
+    }
+
+    .project_container h2 {
+        text-align: center;
+    }
+    
+    .project_container p {
+        text-align: center;
+    }
+
+    .image_container {
+        text-align: center;
+    }
+
+    .project-date {
+        text-align: center;
+    }
 }

@@ -1,0 +1,51 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/media/global.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="/media/global.js"></script>
+    <script src="script.js"></script>
+    <title>Programming</title>
+</head>
+
+<body>
+    <script>
+        $(document).ready(function() {
+            $(
+                "#menu ul li a[name='programming']"
+            ).css("background-color",
+                "#444444")
+            $("#title h1").html(
+                "Programming")
+        })
+    </script>
+
+    <div id="header"></div>
+
+    <div id="main_content">
+        <div class="project_container">
+            <div class="image_container">
+                <img src="https://i.ibb.co/51RkMK4/image.png" alt=""
+                    srcset="">
+            </div>
+            <div>
+                <h2>
+                    EULER #5
+                </h2>
+                <h3 class="project-date">
+                    April 20, 2021
+                </h3>
+                <p>
+                    The task for euler #5 was to find the lowest common multiple (lcm) of the numbers from 1-20. I started by trying a bruteforce
+                    approach, which went through every single possible combination to find the answer. This was very slow because of the
+                    sheer number of possibilities. I moved to researching how to find the lcm efficiently. In the final version my program,
+                    I used the rule that <span>lcm(1, 2, 3, 4, ...) = lcm(lcm(lcm(lcm(1,2), 3), 4), ...)</span>. to find the lcm of two numbers, I found the
+                    greatest common denominator (gcd), then used the x * y = lcm(x, y) * gcd(x, y) rule to solve for the lcm.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>

@@ -44,19 +44,17 @@
 
 
     <div id="loading">
-        <h2>Loading...</h2>
+        <h2>loading</h2>
     </div>
 
     <!-- Shows info about the next pass. Info is filled in automatically -->
     <div id="next_pass" style="display: none;">
         <h2 id="countdown"></h2>
-        <div>
-            <a id="all_passes_button" href="scripts/daily_passes.json">Today's Passes</a>
-        </div>
         <div id="next_pass_info" style="display: none;">
             <ul>
                 <li id="next_pass_sat"></li>
                 <li id="next_pass_max_elev"></li>
+                <li id="next_pass_tca_azimuth"></li>
                 <li id="next_pass_frequency"></li>
                 <li id="next_pass_aos"></li>
                 <li id="next_pass_los"></li>
@@ -127,7 +125,7 @@
                 <h1 class="pass_title"></h1>
                 <h3 class="delta_time">About </h3>
                 <div class="pass_info">
-                    <div class="NOAA">
+                    <div class="APT">
                         <ul>
                             <h2>Pass Information</h2>
                             <li class="sat"></li>
@@ -145,7 +143,7 @@
                             </ul>
                         </ul>
                     </div>
-                    <div class="METEOR">
+                    <div class="LRPT">
                         <ul>
                             <h2>Pass Information</h2>
                             <li class="sat"></li>
